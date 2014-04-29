@@ -16,9 +16,10 @@ function init()
 	console.log('Done loading images');
 
 	// Create a world
+	Simplex.init(Math.random() * (2 << 31 - 1));
 	for (var i = 0; i < 16; i++)
 		for (var j = 0; j < 16; j++)
-			map[j][i] = new Tile(context, 0, i, j);
+			map[j][i] = new Tile(context, Math.floor(Simplex.noise2d(i / 10, j / 10) * 30), i, j);
 	console.log('World created');
 
 	console.log('Starting main loop');
@@ -44,7 +45,6 @@ function mainLoop()
 
 function update(dt)
 {
-
 }
 
 function render()
