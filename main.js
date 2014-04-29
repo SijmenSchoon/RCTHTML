@@ -4,7 +4,7 @@ var lastTime;
 // Load the necessary images
 ResourceManager.onReady = init;
 ResourceManager.loadImages([
-	'img/grass64.png'
+	'img/grass64.png', 'img/wall64e.png', 'img/wall64s.png'
 ]);
 
 map = new Array(16);
@@ -19,7 +19,7 @@ function init()
 	Simplex.init(Math.random() * (2 << 31 - 1));
 	for (var i = 0; i < 16; i++)
 		for (var j = 0; j < 16; j++)
-			map[j][i] = new Tile(context, Math.floor(Simplex.noise2d(i / 10, j / 10) * 30), i, j);
+			map[j][i] = new Tile(context, Math.floor(Simplex.noise2d(i / 32, j / 32) * 4), i, j);
 	console.log('World created');
 
 	console.log('Starting main loop');
