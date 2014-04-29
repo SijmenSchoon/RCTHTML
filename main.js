@@ -4,7 +4,7 @@ var lastTime;
 // Load the necessary images
 ResourceManager.onReady = init;
 ResourceManager.loadImages([
-	'img/grass64.png', 'img/grass64nw.png', 'img/grass64se.png', 'img/grass64s.png', 'img/grass64ne.png', 'img/grass64n.png', 'img/grass64sw.png'
+	'img/grass64.png'
 ]);
 
 map = new Array(16);
