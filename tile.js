@@ -1,6 +1,5 @@
-function Tile(context, height, x, y)
+function Tile(height, x, y)
 {
-	this.context = context;
 	this.height = height;
 	this.x = x;
 	this.y = y;
@@ -21,11 +20,9 @@ Tile.prototype.prerender = function()
 		this.preContext.drawImage(ResourceManager.images['img/wall64.png'], 0, i + 3);
 }
 
-Tile.prototype.draw = function(originX, originY)
+Tile.prototype.draw = function(context, originX, originY)
 {
 	var screenX = originX - (this.y * this.tileWidth / 2) + (this.x * this.tileWidth / 2) - (this.tileWidth / 2);
 	var screenY = originY + (this.y * this.tileHeight / 2) + (this.x * this.tileHeight / 2) - (this.height * 16);
-	if (screenX < -this.tileWidth || screenX > context.canvas.width) return;
-	if (screenY < -this.tileHeight || screenY > context.canvas.height) return;
-	this.context.drawImage(this.preCanvas, screenX, screenY);
+	context.drawImage(this.preCanvas, screenX, screenY);
 };

@@ -21,6 +21,7 @@ ResourceManager.loadImages([
 map = new Array(width);
 for (var i = 0; i < map.length; i++)
 	map[i] = new Array(height);
+terrain = new Terrain(map)
 
 function init()
 {
@@ -31,9 +32,10 @@ function init()
 	for (var i = 0; i < map.length; i++)
 		for (var j = 0; j < map[i].length; j++)
 		{
-			map[j][i] = new Tile(context, Math.floor(Simplex.noise2d(i / 32, j / 32) * 4), i, j);
-			map[j][i].prerender()
+			terrain.map[j][i] = new Tile(Math.floor(Simplex.noise2d(i / 32, j / 32) * 4), i, j);
+			terrain.map[j][i].prerender()
 		}
+	terrain.prerender()
 	console.log('World created');
 
 	console.log('Starting main loop');
@@ -68,7 +70,8 @@ function update(dt)
 
 function render()
 {
-	for (var i = 0; i < map.length; i++)
+	/*for (var i = 0; i < map.length; i++)
 		for (var j = 0; j < map[i].length; j++)
-			map[j][i].draw(768, 0);
+			terrain.map[j][i].draw(context, width * 32, 0);*/
+	terrain.draw(context, 0, 0);
 }
