@@ -15,9 +15,9 @@ Tile.prototype.prerender = function()
 {
 	this.preCanvas.height = (this.height * 16) + 174;
 	this.preContext.drawImage(ResourceManager.images['img/grass64.png'], 0, 0);
-	this.preContext.fillText(this.height, 28, 20)
-	for (var i = (this.height * 16) + 128; i > 0; i -= 16)
-		this.preContext.drawImage(ResourceManager.images['img/wall64.png'], 0, i + 3);
+	//this.preContext.fillText(this.height, 28, 20)
+	for (var i = this.height + 8; i > 0; i--)
+		this.preContext.drawImage(ResourceManager.images['img/wall64.png'], 0, i * 16 + 3);
 }
 
 Tile.prototype.draw = function(context, originX, originY)

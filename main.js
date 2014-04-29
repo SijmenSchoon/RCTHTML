@@ -1,8 +1,9 @@
 var context = document.getElementById('theCanvas').getContext('2d');
 var lastTime;
 
-var width = 32;
-var height = 32;
+var width = (window.location.hash == '') ? 64 : +window.location.hash.substring(1);
+var height = width;
+console.log('Size: ' + width + 'x' + height);
 
 var stats = new Stats();
 stats.setMode(1);
@@ -30,11 +31,13 @@ function init()
 	// Create a world
 	Simplex.init(Math.random() * (2 << 31 - 1));
 	for (var i = 0; i < map.length; i++)
+	{
 		for (var j = 0; j < map[i].length; j++)
 		{
 			terrain.map[j][i] = new Tile(Math.floor(Simplex.noise2d(i / 32, j / 32) * 4), i, j);
 			terrain.map[j][i].prerender()
 		}
+	}
 	terrain.prerender()
 	console.log('World created');
 
@@ -73,5 +76,5 @@ function render()
 	/*for (var i = 0; i < map.length; i++)
 		for (var j = 0; j < map[i].length; j++)
 			terrain.map[j][i].draw(context, width * 32, 0);*/
-	terrain.draw(context, 0, 0);
+	terrain.draw(context, 0, -height*Math.sqrt(height));
 }

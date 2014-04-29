@@ -11,13 +11,14 @@ function Terrain(map)
 Terrain.prototype.prerender = function()
 {
 	this.preCanvas.width = this.width * 64 + 32;
-	this.preCanvas.height = this.height * 32 + 16;
+	this.preCanvas.height = this.height * 32 + 128 + 16;
 
 	for (var i = 0; i < map.length; i++)
 		for (var j = 0; j < map[i].length; j++)
 			map[j][i].draw(this.preContext, width * 32, 0);
 };
 
-Terrain.prototype.draw = function(context, x, y) {
+Terrain.prototype.draw = function(context, x, y)
+{
 	context.drawImage(this.preCanvas, x, y);
 };
