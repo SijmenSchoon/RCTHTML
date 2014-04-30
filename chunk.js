@@ -34,15 +34,14 @@ Chunk.prototype.prerender = function()
 
 Chunk.prototype.draw = function(context, x, y)
 {
-	//if (map[this.y * this.height + (this.height - 1)][this.x * this.width].y * 64 + y > context.canvas.height) return;
 
-	tile = map[this.y * this.height + 15][this.x * this.width];
-	if (tile.x * 32 + x > context.canvas.width) return;
+	var screenX = x - (this.y * 16 * 32) + (this.x * 16 * 32);// - (16 * 32);
+	var screenY = y + (this.y * 16 * 16) + (this.x * 16 * 16);
+
+	if (screenX < -1024 || screenX > context.canvas.width) return;
+	if (screenY < -1024 || screenY > context.canvas.height) return;
+
 	if (this.dirty) this.prerender();
 
-	// var screenX = originX - (y * this.tileWidth / 2) + (x * this.tileWidth / 2) - (this.tileWidth / 2);
-	var screenX = x - (this.y * 16 * 32) + (this.x * 16 * 32);// - (16 * 32);
-	// var screenY = originY + (y * this.tileHeight / 2) + (x * this.tileHeight / 2) - (this.height * 16);
-	var screenY = y + (this.y * 16 * 16) + (this.x * 16 * 16);
 	context.drawImage(this.preCanvas, screenX, screenY + 128);
 };
