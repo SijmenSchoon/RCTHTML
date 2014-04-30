@@ -11,18 +11,17 @@ function Tile(height, x, y)
 	this.preCanvas.width = 66;
 }
 
-Tile.prototype.prerender = function()
+Tile.prototype.draw = function(context, originX, originY, south, east)
 {
-	this.preCanvas.height = (this.height * 16) + 174;
-	this.preContext.drawImage(ResourceManager.images['img/grass64.png'], 0, 0);
-	//this.preContext.fillText(this.height, 28, 20)
-	for (var i = this.height + 8; i > 0; i--)
-		this.preContext.drawImage(ResourceManager.images['img/wall64.png'], 0, i * 16 + 3);
-}
+	var x = this.x % 16;
+	var y = this.y % 16;
+	var screenX = originX - (y * this.tileWidth / 2) + (x * this.tileWidth / 2) - (this.tileWidth / 2);
+	var screenY = originY + (y * this.tileHeight / 2) + (x * this.tileHeight / 2) - (this.height * 16);
+	context.drawImage(ResourceManager.images['img/grass64.png'], screenX, screenY);
+	context.fillText('(' + this.x + ',' + this.y + ')', screenX+20, screenY+19)
 
-Tile.prototype.draw = function(context, originX, originY)
-{
-	var screenX = originX - (this.y * this.tileWidth / 2) + (this.x * this.tileWidth / 2) - (this.tileWidth / 2);
-	var screenY = originY + (this.y * this.tileHeight / 2) + (this.x * this.tileHeight / 2) - (this.height * 16);
-	context.drawImage(this.preCanvas, screenX, screenY);
+	for (var i = 0; i > south.height - this.height; i--)
+		context.drawImage(ResourceManager.images['img/wall64s.png'], 0 + screenX, 19 - (i * 16) + screenY);
+	for (var i = 0; i > east.height - this.height; i--)
+		context.drawImage(ResourceManager.images['img/wall64e.png'], 33 + screenX, 19 - (i * 16) + screenY);
 };
